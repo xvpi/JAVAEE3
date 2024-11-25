@@ -8,3 +8,5 @@ CREATE TABLE login_history (
                                device_info VARCHAR(255) DEFAULT NULL   -- 设备信息（浏览器、系统等）
 );
 delete from login_history;
+ALTER TABLE user
+    ADD status ENUM('normal', 'disabled') DEFAULT 'normal';

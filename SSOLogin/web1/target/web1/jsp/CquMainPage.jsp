@@ -68,7 +68,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url("../image/cqu.jpg");
+            background-image: url("../image/cqu_bg.png");
             background-size: cover;
         }
         .login-container {
@@ -120,6 +120,31 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
+        /* Git commands section */
+        .git-commands-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+        .git-commands-container h3 {
+            text-align: center;
+            color: #5C6670;
+        }
+        .git-commands-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .git-commands-table th, .git-commands-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        .git-commands-table th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 <body>
@@ -135,7 +160,8 @@
 %>
 
 <div class="login-container">
-    <h2>欢迎用户:<%=username%> 同学</h2>
+    <h2>欢迎访问Git常见指令工具箱</h2>
+    <h2>你好:<%=username%> 同学</h2>
     <form action="http://www.pku.com:8082?token=<%=token%>" method="post">
         <input type="submit" value="web2">
     </form>
@@ -182,5 +208,53 @@
         <% } %>
     </table>
 </div>
+
+<!-- Git Commands Section -->
+<div class="git-commands-container">
+    <h3>常见 Git 指令</h3>
+    <table class="git-commands-table">
+        <tr>
+            <th>Git 指令</th>
+            <th>说明</th>
+        </tr>
+        <tr>
+            <td>git init</td>
+            <td>初始化一个 Git 仓库</td>
+        </tr>
+        <tr>
+            <td>git clone &lt;url&gt;</td>
+            <td>克隆一个远程仓库</td>
+        </tr>
+        <tr>
+            <td>git add .</td>
+            <td>添加所有更改的文件到暂存区</td>
+        </tr>
+        <tr>
+            <td>git commit -m "message"</td>
+            <td>提交更改，并附加提交说明</td>
+        </tr>
+        <tr>
+            <td>git push</td>
+            <td>将本地仓库的更改推送到远程仓库</td>
+        </tr>
+        <tr>
+            <td>git pull</td>
+            <td>从远程仓库拉取更新</td>
+        </tr>
+        <tr>
+            <td>git status</td>
+            <td>查看当前仓库的状态</td>
+        </tr>
+        <tr>
+            <td>git log</td>
+            <td>查看提交历史</td>
+        </tr>
+        <tr>
+            <td>git branch</td>
+            <td>查看或创建分支</td>
+        </tr>
+    </table>
+</div>
+
 </body>
 </html>

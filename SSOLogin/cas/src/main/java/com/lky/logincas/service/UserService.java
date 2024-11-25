@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public final class UserService {
     private UserDao userDao = UserDao.getInstance();
@@ -37,6 +38,14 @@ public final class UserService {
     }
     public ArrayList<User> showAllUser() throws SQLException {
         return UserDao.getInstance().showAllUser();
+    }
+    public List<User> getAllUsers() throws SQLException {
+        return userDao.getAllUsers();
+    }
+
+    public void toggleUserStatus(int userId, String action) throws SQLException {
+        String newStatus = action.equals("disable") ? "disabled" : "normal";
+        userDao.updateUserStatus(userId, newStatus);
     }
     // 根据用户名查找用户
     public User findUserByUsername(String username) throws SQLException {

@@ -122,6 +122,10 @@
     <form action="/history" method="get">
         <input type="submit" value="查看历史记录">
     </form>
+    <form action="/user-management" method="get">
+        <input type="submit" value="账号禁用">
+    </form>
+
     <table border="1">
         <tr>
             <th>id</th>

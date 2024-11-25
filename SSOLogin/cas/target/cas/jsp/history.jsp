@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f2f2f2;
+            background-image: url("../image/cqu_bg.png");
         }
 
         h1 {
@@ -64,6 +64,21 @@
         .pagination a.active {
             background-color: #4CAF50;
             color: white;
+        }
+        .back-button {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #0b7dda;
         }
     </style>
 </head>
@@ -123,6 +138,8 @@
             }
         %>
     </div>
+    <!-- 返回按钮 -->
+    <a href="http://www.LoginSystem.com:8081/jsp/main.jsp" class="back-button">返回首页</a>
 </div>
 </body>
 </html>

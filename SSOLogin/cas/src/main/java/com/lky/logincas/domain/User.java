@@ -8,8 +8,23 @@ public class User {
     private String password;
     private String loginTime;
     private String token;
-
+    private String status; // 新增字段
     public User() {
+    }
+
+    public User(Integer id, String username, String password, String loginTime, String token, String status) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.loginTime = loginTime;
+        this.token = token;
+        this.status = status;
+    }
+
+    public User(String username, String password, String status) {
+        this.username = username;
+        this.password = password;
+        this.status = status;
     }
 
 
@@ -70,5 +85,13 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -7,10 +7,8 @@ import com.lky.logincas.util.JdbcHelper;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 import java.util.Date;
-import java.util.TreeSet;
 
 
 public final class UserDao {
@@ -64,34 +62,97 @@ public final class UserDao {
 
         return userArrayList;
     }
+    // 获取所有用户
+    public List<User> getAllUsers() throws SQLException {
+        String sql = "SELECT * FROM user";
+        List<User> users = new ArrayList<>();
+        try (Connection conn = JdbcHelper.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setStatus(rs.getString("status"));
+                users.add(user);
+            }
+        }
+        return users;
+    }
+    // 更新用户状态
+    public void updateUserStatus(int userId, String status) throws SQLException {
+        String sql = "UPDATE user SET status = ? WHERE id = ?";
+        try (Connection conn = JdbcHelper.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, status);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        }
+    }
 
-    public User login(String username,String password) throws SQLException{
-        //声明一个User类型的变量
+    public User login(String username, String password) throws SQLException {
+        // 声明一个User类型的变量
         User user = null;
-        String token =null;
+        String token = null;
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = now.format(formatter);
-        //获得数据库连接对象
+        String status = null;
+
+        // 获得数据库连接对象
         Connection connection = JdbcHelper.getConn();
+        System.out.println("数据库连接成功");
 
         String findByUsername_sql = "SELECT * FROM USER WHERE username=? AND password=?";
         PreparedStatement preparedStatement = connection.prepareStatement(findByUsername_sql);
-        preparedStatement.setString(1,username);
+        preparedStatement.setString(1, username);
         preparedStatement.setString(2, password);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        if (resultSet.next()){
-            token = GenerateToken.generateToken(new String [] {username,password});
-            changeToken(resultSet.getInt("id"),token);
-            changeLoginTime(resultSet.getInt("id"),formattedDateTime);
-            user = new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"), formattedDateTime, token);
-        }
-        System.out.println(user);
+        // 打印 SQL 执行的状态
+        System.out.println("执行SQL查询: " + findByUsername_sql);
 
-        JdbcHelper.close(resultSet,preparedStatement,connection);
+        // 检查数据库查询结果
+        if (!resultSet.next()) {
+            System.out.println("没有找到匹配的用户");
+            JdbcHelper.close(resultSet, preparedStatement, connection);
+            return null;  // 如果没有找到用户，直接返回null
+        }
+
+        // 用户存在，获取状态
+        status = resultSet.getString("status");
+        System.out.println("用户状态: " + status);
+
+        if ("disabled".equals(status)) {
+            System.out.println("用户被禁用");
+            JdbcHelper.close(resultSet, preparedStatement, connection);
+            return null;  // 用户被禁用，返回null
+        }
+
+        // 生成 token 并更新数据库
+        token = GenerateToken.generateToken(new String[] { username, password });
+        if (token == null || token.isEmpty()) {
+            System.out.println("生成的token为空");
+        } else {
+            System.out.println("生成的token: " + token);
+        }
+
+        // 更新用户 token 和登录时间
+        changeToken(resultSet.getInt("id"), token);
+        changeLoginTime(resultSet.getInt("id"), formattedDateTime);
+
+        // 构建 User 对象
+        user = new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"),
+                formattedDateTime, token, status);
+
+        System.out.println("登录成功: " + user);  // 输出用户信息
+
+        // 关闭数据库连接
+        JdbcHelper.close(resultSet, preparedStatement, connection);
+
         return user;
     }
+
     public void logout(String token) throws SQLException{
         //声明一个User类型的变量
         User user = null;
@@ -150,8 +211,9 @@ public final class UserDao {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
+            String status = null;
             if (rs.next()) {
-                return new User(rs.getString("username"), rs.getString("password"));
+                return new User(rs.getString("username"), rs.getString("password"),rs.getString("status"));
             }
             return null;
         }

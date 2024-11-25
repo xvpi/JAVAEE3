@@ -74,6 +74,7 @@
     <%
         String logout = request.getParameter("logout");
         String web = request.getParameter("web");
+        if(web==null){web = "main";}
         if (logout != null && logout.equals("true")) {
             response.sendRedirect("http://www.LoginSystem.com:8081/clearcookie");
         } else {
