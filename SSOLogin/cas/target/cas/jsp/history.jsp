@@ -1,6 +1,6 @@
-<%@ page import="com.lky.logincas.service.LoginHistoryService" %>
+<%@ page import="com.xvpi.cas.service.LoginHistoryService" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.lky.logincas.domain.LoginHistory" %>
+<%@ page import="com.xvpi.cas.domain.LoginHistory" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -139,7 +139,7 @@
         %>
     </div>
     <!-- 返回按钮 -->
-    <a href="http://www.LoginSystem.com:8081/jsp/main.jsp" class="back-button">返回首页</a>
+    <a href="http://www.Cas.com:8081/jsp/main.jsp" class="back-button">返回首页</a>
 </div>
 </body>
 </html>

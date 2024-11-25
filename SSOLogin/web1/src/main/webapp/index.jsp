@@ -20,9 +20,9 @@
         token = request.getQueryString().split("=")[1];
     }
     if (token == null||token.equals("")) {
-        response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp?web=web1");
+        response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp?web=web1");
     } else {
-        String targetUrl = "http://www.LoginSystem.com:8081/ValToken";
+        String targetUrl = "http://www.Cas.com:8081/ValToken";
         // 创建连接
         URL url = new URL(targetUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -51,12 +51,12 @@
                 response.addCookie(cookieUsername);
                 Cookie cookieToken = new Cookie("token", token);
                 response.addCookie(cookieToken);
-                response.sendRedirect("http://www.CQU.com:8080/jsp/CquMainPage.jsp");
+                response.sendRedirect("http://www.Web1.com:8080/jsp/Web1MainPage.jsp");
             } else {
-                response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp?web=web1");
+                response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp?web=web1");
             }
         }catch(Exception e){
-            response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp?web=web1");
+            response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp?web=web1");
         }
         // 关闭连接
         connection.disconnect();

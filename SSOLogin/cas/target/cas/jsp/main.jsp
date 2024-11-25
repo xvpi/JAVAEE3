@@ -1,10 +1,10 @@
-<%@ page import="com.lky.logincas.service.UserService" %>
+<%@ page import="com.xvpi.cas.service.UserService" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="javax.servlet.http.HttpServletRequest" %>
 <%@ page import="java.util.Objects" %>
-<%@ page import="com.lky.logincas.domain.User" %>
+<%@ page import="com.xvpi.cas.domain.User" %>
 <%@ page import="java.net.URL" %>
 <%@ page import="java.net.HttpURLConnection" %>
 <%@ page import="java.io.OutputStream" %>
@@ -93,7 +93,7 @@
         // 验证token有效性
         try {
             if (UserService.getInstance().valToken(token) == null) {
-                response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp");
+                response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp");
             } else {
 
             }
@@ -101,7 +101,7 @@
             throw new RuntimeException(e);
         }
     } else {
-        response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp");
+        response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp");
     }
 %>
 
@@ -133,7 +133,7 @@
             <th>登录时间</th>
         </tr>
         <%
-            String targetUrl = "http://www.LoginSystem.com:8081/ShowAllUser";
+            String targetUrl = "http://www.Cas.com:8081/ShowAllUser";
             // 创建连接
             URL url = new URL(targetUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

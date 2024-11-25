@@ -7,6 +7,14 @@ CREATE TABLE login_history (
                                ip_address VARCHAR(45),                 -- 登录IP地址（IPv4/IPv6）
                                device_info VARCHAR(255) DEFAULT NULL   -- 设备信息（浏览器、系统等）
 );
-delete from login_history;
-ALTER TABLE user
-    ADD status ENUM('normal', 'disabled') DEFAULT 'normal';
+create table user
+(
+    id        int auto_increment
+        primary key,
+    username  varchar(255) not null,
+    password  varchar(255) not null,
+    loginTime varchar(255) null,
+    token     varchar(255) null,
+    status ENUM('normal', 'disabled') DEFAULT 'normal'
+);
+

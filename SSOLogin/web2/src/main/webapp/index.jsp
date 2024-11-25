@@ -20,9 +20,9 @@
         token = request.getQueryString().split("=")[1];
     }
     if (token == null|| token.isEmpty()) {
-        response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp?web=web2");
+        response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp?web=web2");
     } else {
-        String targetUrl = "http://www.LoginSystem.com:8081/ValToken";
+        String targetUrl = "http://www.Cas.com:8081/ValToken";
         // 创建连接
         URL url = new URL(targetUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -50,11 +50,11 @@
                 Cookie cookieToken = new Cookie("token", token);
                 response.addCookie(cookieToken);
             } else {
-                response.sendRedirect("http://www.LoginSystem.com:8081/jsp/login.jsp?web=web2");
+                response.sendRedirect("http://www.Cas.com:8081/jsp/login.jsp?web=web2");
             }
         }
         // 关闭连接
         connection.disconnect();
-        response.sendRedirect("http://www.PKU.com:8082/jsp/PkuMainPage.jsp");
+        response.sendRedirect("http://www.Web2.com:8082/jsp/Web2MainPage.jsp");
     }
 %>

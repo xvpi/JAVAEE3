@@ -76,7 +76,7 @@
         String web = request.getParameter("web");
         if(web==null){web = "main";}
         if (logout != null && logout.equals("true")) {
-            response.sendRedirect("http://www.LoginSystem.com:8081/clearcookie");
+            response.sendRedirect("http://www.Cas.com:8081/clearcookie");
         } else {
             String token = null;
             Cookie[] cookies = ((HttpServletRequest) request).getCookies();
@@ -89,13 +89,13 @@
             }
             if (token != null && !token.isEmpty()) {
                 if (web == null)
-                    response.sendRedirect("http://www.LoginSystem.com:8081/jsp/main.jsp");
+                    response.sendRedirect("http://www.Cas.com:8081/jsp/main.jsp");
                 else if (web.equals("web1"))
-                    response.sendRedirect("http://www.CQU.com:8080?token=" + token);
+                    response.sendRedirect("http://www.Web1.com:8080?token=" + token);
                 else if (web.equals("web2"))
-                    response.sendRedirect("http://www.PKU.com:8082/?token=" + token);
+                    response.sendRedirect("http://www.Web2.com:8082/?token=" + token);
                 else {
-                    response.sendRedirect("http://www.LoginSystem.com:8081/jsp/main.jsp");
+                    response.sendRedirect("http://www.Cas.com:8081/jsp/main.jsp");
                 }
             }
         }
